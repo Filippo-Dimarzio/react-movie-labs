@@ -1,0 +1,13 @@
+{
+  "name": "react-movie-labs",
+  "private": true,
+  "workspaces": [
+    "movies"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace movies --",
+    "build": "npm run build --workspace movies --",
+    "lint": "npm run lint --workspace movies --",
+    "preview": "npm run preview --workspace movies --"
+  }
+}
