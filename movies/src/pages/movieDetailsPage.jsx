@@ -16,6 +16,9 @@ import { createTmdbError, createTmdbRequest } from '../utils/tmdb'
 import MovieHeader from '../components/headerMovie/'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
+import { getMovie, getMovieImages } from "../api/tmdb-api";
+import { getGenres } from "../../api/tmdb-api";
+
 
 
 export function MoviePage(props) {
@@ -23,31 +26,26 @@ export function MoviePage(props) {
   const [movie, setMovie] = useState(null);
   const [images, setImages] = useState([]);
 
+
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((movie) => {
-        console.log(movie)
-        setMovie(movie);
-      });
+    getMovie(id).then((movie) => {
+      setMovie(movie);
+    });
   }, [id]);
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    )
-      .then((res) => res.json())
-      .then((json) => json.posters)
-      .then((images) => {
-        console.log(images)
-        setImages(images);
-      });
-      eslint-disable-next-line
+    getMovieImages(id).then((images) => {
+      setImages(images);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+useEffect(() => {
+    getGenres().then((allGenres) => {
+      setGenres([genres[0], ...allGenres]);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
   return (
