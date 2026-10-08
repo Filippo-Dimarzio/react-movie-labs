@@ -18,6 +18,11 @@ const revenue = movie.revenue
     ['Released', movie.release_date || 'Unknown'],
     ['Runtime', movie.runtime ? `${movie.runtime} min` : 'Unknown'],
     [
+      'Production countries',
+      movie.production_countries?.map((country) => country.name).join(', ') ||
+        'Unknown',
+    ],
+    [
       'Rating',
       `${Number(movie.vote_average || 0).toFixed(1)} / 10 (${movie.vote_count ?? 0} votes)`,
     ],

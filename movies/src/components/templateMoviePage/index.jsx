@@ -5,7 +5,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { getMovieImages } from "../../api/tmdb-api";
 
-const TemplateMoviePage = ({ movie, children }) => {
+const TemplateMoviePage = ({ movie, movies = [], children }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const TemplateMoviePage = ({ movie, children }) => {
 
   return (
     <>
-      <MovieHeader movie={movie} />
+      <MovieHeader movie={movie} movies={movies} />
 
       <Grid container spacing={5} style={{ padding: "15px" }}>
         <Grid size={{xs: 3}}>
@@ -53,4 +53,3 @@ const TemplateMoviePage = ({ movie, children }) => {
 };
 
 export default TemplateMoviePage;
-

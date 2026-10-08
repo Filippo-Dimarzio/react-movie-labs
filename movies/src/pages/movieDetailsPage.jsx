@@ -1,18 +1,19 @@
 import React from "react";
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import MovieDetails from "../components/movieDetails/";
 import PageTemplate from "../components/templateMoviePage";
 import useMovie from "../hooks/useMovie";
 
 const MoviePage = (props) => {
   const { id } = useParams();
+  const { state } = useLocation();
   const [movie] = useMovie(id);
 
   return (
     <>
       {movie ? (
         <>
-          <PageTemplate movie={movie}>
+          <PageTemplate movie={movie} movies={state?.movies}>
             <MovieDetails movie={movie} />
           </PageTemplate>
         </>

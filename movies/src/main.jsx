@@ -1,11 +1,13 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import './App.css'
 import './index.css'
 import HomePage from './pages/homePage.jsx'
 import MoviePage from './pages/movieDetailsPage.jsx'
 import FavoriteMoviesPage from './pages/favoriteMoviesPage.jsx'
 import MovieReviewPage from './pages/movieReviewPage.jsx'
 import SiteHeader from './components/siteHeader'
+import UpcomingMoviesPage from './pages/upcomingMoviesPage.jsx'
 
 const App = () => {
   return (
@@ -14,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/reviews/:id" element={<MovieReviewPage />} />
         <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+        <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
         <Route path="/movies/:id" element={<MoviePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -13,12 +13,10 @@ import {
 } from '@mui/material'
 import { Link as RouterLink } from 'react-router'
 import posterPlaceholder from '../../images/film-poster-placeholder.png'
-import { Link } from "react-router";
-
 
 const posterBaseUrl = 'https://image.tmdb.org/t/p/w500'
 
-function MovieCard({ movie, isFavorite, onAddToFavorites }) {
+function MovieCard({ movie, movies, isFavorite, onAddToFavorites }) {
   const poster = movie.poster_path
     ? `${posterBaseUrl}${movie.poster_path}`
     : posterPlaceholder
@@ -69,16 +67,12 @@ function MovieCard({ movie, isFavorite, onAddToFavorites }) {
         <Button
           component={RouterLink}
           to={`/movies/${movie.id}`}
-          state={{ movie }}
+          state={{ movie, movies }}
           size="small"
           variant="outlined"
         >
-                  <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>
-        </Link>
-        </Button>
       </CardActions>
     </Card>
   )

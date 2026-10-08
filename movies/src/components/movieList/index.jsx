@@ -11,6 +11,7 @@ function MovieList({
     <Grid key={movie.id} size={{ xs: 12, sm: 6, md: 4, lg: 2, xl: 2 }}>
       <MovieCard
         movie={movie}
+        movies={movies}
         isFavorite={movie.favorite || favorites.includes(movie.id)}
         onAddToFavorites={onAddToFavorites ?? selectFavorite}
       />

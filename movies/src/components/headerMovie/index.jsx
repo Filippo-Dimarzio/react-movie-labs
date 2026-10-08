@@ -5,9 +5,19 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
+import { useNavigate, useParams } from "react-router";
 
-const MovieHeader = (props) => {
-  const movie = props.movie;
+const MovieHeader = ({ movie, movies }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const movieIndex = movies.findIndex((item) => String(item.id) === id);
+
+  const goToMovie = (index) => {
+    const nextMovie = movies[index];
+    navigate(`/movies/${nextMovie.id}`, {
+      state: { movie: nextMovie, movies },
+    });
+  };
 
   return (
     <Paper 
@@ -20,7 +30,11 @@ const MovieHeader = (props) => {
             margin: 0,
         }}
       >
-      <IconButton aria-label="go back">
+      <IconButton
+        aria-label="Previous movie"
+        disabled={movieIndex <= 0}
+        onClick={() => goToMovie(movieIndex - 1)}
+      >
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
 
@@ -32,7 +46,11 @@ const MovieHeader = (props) => {
         <br />
         <span sx={{ fontSize: "1.5rem" }}>{`   "${movie.tagline}"`} </span>
       </Typography>
-      <IconButton aria-label="go forward">
+      <IconButton
+        aria-label="Next movie"
+        disabled={movieIndex < 0 || movieIndex >= movies.length - 1}
+        onClick={() => goToMovie(movieIndex + 1)}
+      >
         <ArrowForwardIcon color="primary" fontSize="large" />
       </IconButton>
     </Paper>
