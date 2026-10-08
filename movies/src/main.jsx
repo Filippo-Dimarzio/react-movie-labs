@@ -4,7 +4,7 @@ import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router'
 import { demoMovies } from './App.jsx'
 import './index.css'
 import HomePage from './pages/homePage.jsx'
-import { MoviePage } from './pages/movieDetailsPage.jsx'
+import MoviePage from './pages/movieDetailsPage.jsx'
 import FavoriteMoviesPage from './pages/favoriteMoviesPage.jsx'
 
 const App = () => {

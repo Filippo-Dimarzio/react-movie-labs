@@ -1,7 +1,12 @@
-import { Chip, Grid, Stack, Typography } from '@mui/material'
+import { Chip, Fab, Grid, Stack, Typography } from '@mui/material'
+import NavigationIcon from '@mui/icons-material/Navigation'
+import React, { useState } from "react";
+import Drawer from "@mui/material/Drawer";
+import MovieReviews from "../movieReviews"
 
-function MovieDetails({ movie }) {
-  const revenue = movie.revenue
+const MovieDetails = ({ movie }) => {
+const [drawerOpen, setDrawerOpen] = useState(false);
+const revenue = movie.revenue
     ? new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -44,7 +49,25 @@ function MovieDetails({ movie }) {
           </Grid>
         ))}
       </Grid>
+     <Fab
+        color="secondary"
+        variant="extended"
+        onClick={() =>setDrawerOpen(true)}
+        sx={{
+          position: 'fixed',
+          bottom: '1em',
+          right: '1em'
+        }}
+      >
+        <NavigationIcon />
+        Reviews
+      </Fab>
+      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <MovieReviews movie={movie} />
+      </Drawer>
     </>
+
+    
   )
 }
 
