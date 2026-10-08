@@ -9,5 +9,8 @@
     "build": "npm run build --workspace movies --",
     "lint": "npm run lint --workspace movies --",
     "preview": "npm run preview --workspace movies --"
+  },
+  "dependencies": {
+    "react-router": "^8.4.0"
   }
 }

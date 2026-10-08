@@ -1,26 +1,39 @@
-import { StrictMode } from 'react'
+import { useState } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router'
+import { demoMovies } from './App.jsx'
 import './index.css'
-import MainApp from './App.jsx'
-import MovieDetailsPage from './pages/movieDetailsPage'
-
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <MainApp />
-  </StrictMode>,
-)
+import HomePage from './pages/homePage.jsx'
+import { MoviePage } from './pages/movieDetailsPage.jsx'
+import FavoriteMoviesPage from './pages/favoriteMoviesPage.jsx'
 
 const App = () => {
+  const [apiKey, setApiKey] = useState(import.meta.env.VITE_TMDB_KEY || '')
+
   return (
-      <MovieDetailsPage movie={sample} images={images} />
-      );
-};
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link>
+        {' | '}
+        <Link to="/movies/favorites">Favorites</Link>
+      </nav>
+      <Routes>
+        <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+        <Route path="/movies/:id" element={<MoviePage />} />
+        <Route
+          path="/"
+          element={
+            <HomePage
+              demoMovies={demoMovies}
+              apiKey={apiKey}
+              onApiKeyChange={setApiKey}
+            />
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
-
-const images = [
-  "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
-  "/v1QQKq8M0fWxMgSdGOX1aCv8qMB.jpg",
-  "/2iGN0aKHJYD0xQydlfuCUAcgNbO.jpg",
-  "/rjBwhsOzHKUw2NIOrE7aMqjfe6s.jpg",
-]
+createRoot(document.getElementById('root')).render(<App />)

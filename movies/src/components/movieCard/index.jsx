@@ -3,6 +3,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
 import {
   Button,
+  Avatar,
   Card,
   CardActions,
   CardContent,
@@ -12,10 +13,12 @@ import {
 } from '@mui/material'
 import { Link as RouterLink } from 'react-router'
 import posterPlaceholder from '../../images/film-poster-placeholder.png'
+import { Link } from "react-router";
+
 
 const posterBaseUrl = 'https://image.tmdb.org/t/p/w500'
 
-function MovieCard({ movie, isFavorite, onToggleFavorite }) {
+function MovieCard({ movie, isFavorite, onAddToFavorites }) {
   const poster = movie.poster_path
     ? `${posterBaseUrl}${movie.poster_path}`
     : posterPlaceholder
@@ -26,6 +29,11 @@ function MovieCard({ movie, isFavorite, onToggleFavorite }) {
         <Typography variant="body2" title={movie.title}>
           {movie.title}
         </Typography>
+        {isFavorite && (
+          <Avatar sx={{ backgroundColor: 'red', width: 32, height: 32 }}>
+            <FavoriteIcon className="favorite-icon" />
+          </Avatar>
+        )}
       </CardContent>
       <CardMedia
         component="img"
@@ -46,10 +54,11 @@ function MovieCard({ movie, isFavorite, onToggleFavorite }) {
           size="small"
           aria-label={
             isFavorite
-              ? `Remove ${movie.title} from favorites`
+              ? `${movie.title} is already a favorite`
               : `Add ${movie.title} to favorites`
           }
-          onClick={() => onToggleFavorite(movie.id)}
+          disabled={isFavorite}
+          onClick={() => onAddToFavorites(movie.id)}
         >
           {isFavorite ? (
             <FavoriteIcon className="favorite-icon" />
@@ -64,7 +73,11 @@ function MovieCard({ movie, isFavorite, onToggleFavorite }) {
           size="small"
           variant="outlined"
         >
-          More Info...
+                  <Link to={`/movies/${movie.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
+            More Info ...
+          </Button>
+        </Link>
         </Button>
       </CardActions>
     </Card>

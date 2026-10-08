@@ -96,11 +96,16 @@ function HomePage({ demoMovies, apiKey, onApiKeyChange }) {
       setLoadAttempt((attempt) => attempt + 1)
     }
   }
+  
 
-  const toggleFavorite = (movieId) => {
+  const addToFavorites = (movieId) => {
+    const updatedMovies = movies.map((movie) =>
+      movie.id === movieId ? { ...movie, favorite: true } : movie,
+    )
+    setMovies(updatedMovies)
     setFavorites((currentFavorites) =>
       currentFavorites.includes(movieId)
-        ? currentFavorites.filter((id) => id !== movieId)
+        ? currentFavorites
         : [...currentFavorites, movieId],
     )
   }
@@ -161,7 +166,7 @@ function HomePage({ demoMovies, apiKey, onApiKeyChange }) {
               <MovieList
                 movies={visibleMovies}
                 favorites={favorites}
-                onToggleFavorite={toggleFavorite}
+                onAddToFavorites={addToFavorites}
               />
             </Grid>
           ) : (

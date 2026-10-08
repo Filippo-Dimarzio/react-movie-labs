@@ -199,10 +199,15 @@
 .movie-card-title {
   min-height: 34px;
   padding: 8px 9px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #202020;
 }
 
 .movie-card-title .MuiTypography-root {
+  min-width: 0;
+  flex: 1;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;

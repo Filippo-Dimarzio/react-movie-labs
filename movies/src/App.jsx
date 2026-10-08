@@ -4,7 +4,7 @@ import './App.css'
 import HomePage from './pages/homePage.jsx'
 import MovieDetailsPage from './pages/movieDetailsPage.jsx'
 
-const movies = [
+export const demoMovies = [
   {
     id: 1,
     title: 'Wonder Woman 1984',
@@ -113,7 +113,7 @@ function App() {
           path="/"
           element={
             <HomePage
-              demoMovies={movies}
+              demoMovies={demoMovies}
               apiKey={apiKey}
               onApiKeyChange={setApiKey}
             />
