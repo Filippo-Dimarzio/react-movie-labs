@@ -6,6 +6,7 @@ import './index.css'
 import HomePage from './pages/homePage.jsx'
 import MoviePage from './pages/movieDetailsPage.jsx'
 import FavoriteMoviesPage from './pages/favoriteMoviesPage.jsx'
+import MovieReviewPage from './pages/movieReviewPage.jsx'
 
 const App = () => {
   const [apiKey, setApiKey] = useState(import.meta.env.VITE_TMDB_KEY || '')
@@ -19,6 +20,7 @@ const App = () => {
       </nav>
       <Routes>
         <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+        <Route path="/reviews/:id" element={<MovieReviewPage />} />
         <Route path="/movies/:id" element={<MoviePage />} />
         <Route
           path="/"
