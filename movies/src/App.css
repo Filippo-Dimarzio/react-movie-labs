@@ -262,6 +262,88 @@
   text-align: center;
 }
 
+.movie-details-toolbar {
+  padding: 16px;
+}
+
+.movie-details-heading {
+  margin: 0 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.movie-details-heading h1 {
+  color: #333;
+}
+
+.movie-details-heading p {
+  color: #666;
+  font-style: italic;
+}
+
+.movie-details-content,
+.movie-details-gallery {
+  padding: 24px 16px;
+}
+
+.movie-details-poster {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.movie-details-overview {
+  margin-top: 8px !important;
+  line-height: 1.6 !important;
+}
+
+.movie-details-genres {
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.movie-details-facts {
+  margin-top: 18px;
+}
+
+.movie-details-facts .MuiGrid-root {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.movie-details-facts strong {
+  color: #333;
+}
+
+.movie-details-gallery h2 {
+  margin-bottom: 16px;
+}
+
+.movie-details-image {
+  display: block;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.movie-details-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 16px;
+}
+
+.movie-details-error {
+  margin: 0 16px 16px;
+}
+
 @media (max-width: 600px) {
   .movie-toolbar {
     padding: 0 8px !important;
