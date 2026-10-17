@@ -1,22 +1,13 @@
-import Grid from '@mui/material/Grid'
-import MovieCard from '../movieCard'
+import Movie from "../movieCard/";
+import Grid from "@mui/material/Grid";
 
-function MovieList({
-  movies,
-  favorites = [],
-  onAddToFavorites,
-  selectFavorite,
-}) {
-  return movies.map((movie) => (
-    <Grid key={movie.id} size={{ xs: 12, sm: 6, md: 4, lg: 2, xl: 2 }}>
-      <MovieCard
-        movie={movie}
-        movies={movies}
-        isFavorite={movie.favorite || favorites.includes(movie.id)}
-        onAddToFavorites={onAddToFavorites ?? selectFavorite}
-      />
+const MovieList = (props) => {
+  let movieCards = props.movies.map((m) => (
+    <Grid key={m.id} size={{xs: 12, sm: 6, md: 4, lg: 3, xl: 2}} sx={{padding: "20px"}}>
+          <Movie key={m.id} movie={m} selectFavorite={props.selectFavorite} />
     </Grid>
-  ))
-}
+  ));
+  return movieCards;
+};
 
-export default MovieList
+export default MovieList;

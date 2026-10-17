@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { getMovieImages } from "../../api/tmdb-api";
 
-const TemplateMoviePage = ({ movie, movies = [], children }) => {
+const TemplateMoviePage = ({ movie, children }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const TemplateMoviePage = ({ movie, movies = [], children }) => {
 
   return (
     <>
-      <MovieHeader movie={movie} movies={movies} />
+      <MovieHeader movie={movie} />
 
       <Grid container spacing={5} style={{ padding: "15px" }}>
         <Grid size={{xs: 3}}>

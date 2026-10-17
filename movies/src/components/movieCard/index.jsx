@@ -1,81 +1,78 @@
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
-import {
-  Button,
-  Avatar,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  IconButton,
-  Typography,
-} from '@mui/material'
-import { Link as RouterLink } from 'react-router'
-import posterPlaceholder from '../../images/film-poster-placeholder.png'
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import CardHeader from "@mui/material/CardHeader";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
+import StarRateIcon from "@mui/icons-material/StarRate";
+import IconButton from "@mui/material/IconButton";
+import Grid from "@mui/material/Grid";
+import Avatar from '@mui/material/Avatar';
+import img from '../../images/film-poster-placeholder.png';
+import { Link } from "react-router";
 
-const posterBaseUrl = 'https://image.tmdb.org/t/p/w500'
+export default function MovieCard(props) {
+  const movie = props.movie;
+  
+  const handleAddToFavorite = (e) => {
+    e.preventDefault();
+    props.selectFavorite(movie.id);
+  };
 
-function MovieCard({ movie, movies, isFavorite, onAddToFavorites }) {
-  const poster = movie.poster_path
-    ? `${posterBaseUrl}${movie.poster_path}`
-    : posterPlaceholder
-
+  
   return (
-    <Card className="movie-card" elevation={1}>
-      <CardContent className="movie-card-title">
-        <Typography variant="body2" title={movie.title}>
-          {movie.title}
-        </Typography>
-        {isFavorite && (
-          <Avatar sx={{ backgroundColor: 'red', width: 32, height: 32 }}>
-            <FavoriteIcon className="favorite-icon" />
-          </Avatar>
-        )}
-      </CardContent>
-      <CardMedia
-        component="img"
-        className="movie-poster"
-        image={poster}
-        alt={`${movie.title} poster`}
-        onError={(event) => {
-          event.currentTarget.src = posterPlaceholder
-        }}
+    <Card>
+      <CardHeader
+        avatar={
+          movie.favorite ? (
+            <Avatar sx={{ backgroundColor: 'red' }}>
+              <FavoriteIcon />
+            </Avatar>
+          ) : null
+        }
+        title={
+          <Typography variant="h5" component="p">
+            {movie.title}{" "}
+          </Typography>
+        }
       />
-      <CardContent className="movie-card-meta">
-        <CalendarTodayOutlinedIcon fontSize="inherit" />
-        <span>{movie.release_date}</span>
-        <span className="rating">★ {Number(movie.vote_average || 0).toFixed(1)}</span>
+      <CardMedia
+        sx={{ height: 500 }}
+        image={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+            : img
+        }
+      />
+      <CardContent>
+        <Grid container>
+          <Grid size={{xs: 6}}>
+            <Typography variant="h6" component="p">
+              <CalendarIcon fontSize="small" />
+              {movie.release_date}
+            </Typography>
+          </Grid>
+          <Grid size={{xs: 6}}>
+            <Typography variant="h6" component="p">
+              <StarRateIcon fontSize="small" />
+              {"  "} {movie.vote_average}{" "}
+            </Typography>
+          </Grid>
+        </Grid>
       </CardContent>
-      <CardActions className="movie-card-actions">
-        <IconButton
-          size="small"
-          aria-label={
-            isFavorite
-              ? `${movie.title} is already a favorite`
-              : `Add ${movie.title} to favorites`
-          }
-          disabled={isFavorite}
-          onClick={() => onAddToFavorites(movie.id)}
-        >
-          {isFavorite ? (
-            <FavoriteIcon className="favorite-icon" />
-          ) : (
-            <FavoriteBorderIcon className="favorite-icon" />
-          )}
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites" onClick={handleAddToFavorite}>
+            <FavoriteIcon color="primary" fontSize="large" />
         </IconButton>
-        <Button
-          component={RouterLink}
-          to={`/movies/${movie.id}`}
-          state={{ movie, movies }}
-          size="small"
-          variant="outlined"
-        >
+        <Link to={`/movies/${movie.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>
+        </Link>
       </CardActions>
     </Card>
-  )
+  );
 }
-
-export default MovieCard

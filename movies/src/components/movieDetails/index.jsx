@@ -1,60 +1,81 @@
-import { Chip, Fab, Grid, Stack, Typography } from '@mui/material'
-import NavigationIcon from '@mui/icons-material/Navigation'
-import React, { useState } from "react";
+import { useState } from "react";
+import Chip from "@mui/material/Chip";
+import Paper from "@mui/material/Paper";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import MonetizationIcon from "@mui/icons-material/MonetizationOn";
+import StarRate from "@mui/icons-material/StarRate";
+import NavigationIcon from "@mui/icons-material/Navigation";
+import Fab from "@mui/material/Fab";
+import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
 
-const MovieDetails = ({ movie }) => {
-const [drawerOpen, setDrawerOpen] = useState(false);
-const revenue = movie.revenue
-    ? new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        maximumFractionDigits: 0,
-      }).format(movie.revenue)
-    : 'Unknown'
 
-  const facts = [
-    ['Released', movie.release_date || 'Unknown'],
-    ['Runtime', movie.runtime ? `${movie.runtime} min` : 'Unknown'],
-    [
-      'Production countries',
-      movie.production_countries?.map((country) => country.name).join(', ') ||
-        'Unknown',
-    ],
-    [
-      'Rating',
-      `${Number(movie.vote_average || 0).toFixed(1)} / 10 (${movie.vote_count ?? 0} votes)`,
-    ],
-    ['Revenue', revenue],
-  ]
+const root = {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: 1.5,
+    margin: 0,
+};
+const chip = { margin: 0.5 };
+
+const MovieDetails = ({ movie }) => {  // Don't miss this!
+const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
-      <Typography component="h2" variant="h5">
+      <Typography variant="h5" component="h3">
         Overview
       </Typography>
-      <Typography className="movie-details-overview">
-        {movie.overview || 'No overview is available for this movie.'}
+
+      <Typography variant="h6" component="p">
+        {movie.overview}
       </Typography>
 
-      {movie.genres?.length > 0 && (
-        <Stack className="movie-details-genres" direction="row" gap={1}>
-          {movie.genres.map((genre) => (
-            <Chip key={genre.id} label={genre.name} />
-          ))}
-        </Stack>
-      )}
-
-      <Grid container spacing={2} className="movie-details-facts">
-        {facts.map(([label, value]) => (
-          <Grid key={label} size={{ xs: 6, md: 3 }}>
-            <strong>{label}</strong>
-            <span>{value}</span>
-          </Grid>
+      <Paper 
+        component="ul" 
+        sx={{...root}}
+      >
+        <li>
+          <Chip label="Genres" sx={{...chip}} color="primary" />
+        </li>
+        {movie.genres.map((g) => (
+          <li key={g.name}>
+            <Chip label={g.name} sx={{...chip}} />
+          </li>
         ))}
-      </Grid>
-     <Fab
+      </Paper>
+      
+      <Paper component="ul" sx={{...root}}>
+        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+        <Chip
+          icon={<MonetizationIcon />}
+          label={`${movie.revenue.toLocaleString()}`}
+        />
+        <Chip
+          icon={<StarRate />}
+          label={`${movie.vote_average} (${movie.vote_count})`}
+        />
+        <Chip label={`Released: ${movie.release_date}`} />
+      </Paper>
+      
+      <Paper 
+        component="ul" 
+        sx={{...root}}
+      >
+        <li>
+          <Chip label="Production Countries" sx={{...chip}} color="primary" />
+        </li>
+        {movie.production_countries.map((c) => (
+          <li key={c.name}>
+            <Chip label={c.name} sx={{...chip}} />
+          </li>
+        ))}
+      </Paper>
+      
+      <Fab
         color="secondary"
         variant="extended"
         onClick={() =>setDrawerOpen(true)}
@@ -70,10 +91,8 @@ const revenue = movie.revenue
       <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <MovieReviews movie={movie} />
       </Drawer>
-    </>
 
-    
-  )
-}
-
-export default MovieDetails
+      </>
+  );
+};
+export default MovieDetails ;

@@ -1,4 +1,3 @@
-import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
 
 const FavoriteMoviesPage = (props) => {
@@ -8,9 +7,9 @@ const FavoriteMoviesPage = (props) => {
 
   return (
     <PageTemplate
-      title='Discover Movies'
+      title="Favourite Movies"
       movies={movies}
-      selectFavorite={addToFavorites}
+      selectFavorite={toDo}
     />
   );
 };
