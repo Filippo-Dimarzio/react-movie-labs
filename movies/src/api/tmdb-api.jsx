@@ -102,6 +102,35 @@ export const getMovieReviews = ({ queryKey }) => {
   });
 };
 
+export const getMovieRecommendations = ({ queryKey}) => {
+  const [ , {id}] = queryKey;
+  return fetch(
+     `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
+  ).then((response) => {
+    if (!response.ok) {
+      return response.json().then((error) => {
+        throw new Error(error.status_message || "Something went wrong");
+      });
+    }
+    return response.json();
+  }).then((json) => json.results);
+};
+
+export const getMovieCredits = ({ queryKey }) => {
+  const [, { id }] = queryKey;
+
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  ).then((response) => {
+    if (!response.ok) {
+      return response.json().then((error) => {
+        throw new Error(error.status_message || "Something went wrong");
+      });
+    }
+    return response.json();
+  }).then((json) => json.cast);
+};
+
 export const getPopularMovies = () => {
   return fetch(
     `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
